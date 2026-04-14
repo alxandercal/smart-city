@@ -1,0 +1,18 @@
+//
+
+document.getElementById('loginForm')?.addEventListener('submit',(e)=>{
+    e.preventDefault()//evita refresh de la pagina
+
+    const email=document.getElementById('logEmail').value
+    const password =document.getElementById('loginPassword').value
+    
+    if(!email || !password){
+        showAlert('loginAlert','Por favor, completa todos los campos')
+        return
+    }
+
+    localStorage.setItem('userName',email.split('@')[0])
+    
+    window.location.href ='dashboard.html'
+    
+})
