@@ -1,8 +1,8 @@
 //Funciones globales
 
-const showAlert= (elementId,message)=>{
+const showAlert = (elementId,message)=>{
     const alert= document.getElementById(elementId)
-    alert.textContent=message
+    alert.textContent = message
     alert.classList.remove('d-none')
 
 }

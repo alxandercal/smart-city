@@ -8,7 +8,7 @@ body{
 }
 
 .auth-card{
-    border-radius: 1 rem;
+    border-radius: 1rem;
 }
 
 .brand-badge{
@@ -20,14 +20,14 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2 rem;
+    font-size: 2rem;
     color: #0D6EfD;
 }
 
 .info-card{
     border: none;
-    border-radius: 1 rem;
-    transition: transform 0.2s ease,box-shadow 0.2s ease;
+    border-radius: 1rem;
+    transition: transform 0.2s ease ,box-shadow 0.2s ease;
 }
 
 .info-card:hover{
