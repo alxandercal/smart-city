@@ -2,7 +2,7 @@ import { hideAlert,showAlert,setButtonLoading,loginUser,observerAuth,getFirebase
 
 const form=document.getElementById('loginForm')
 const emailInput =document.getElementById('loginEmail')
-const passwordInput =document.getElementById('passwordInput')
+const passwordInput =document.getElementById('loginPassword')
 const loginBtn =document.getElementById('loginBtn')
 
 observerAuth((user)=>{
@@ -12,7 +12,7 @@ observerAuth((user)=>{
 
 })
 
-form?.getElementById('loginForm')?.addEventListener('submit',(e)=>{
+form?.addEventListener('submit',async(e)=>{
     e.preventDefault()//evita refresh de la pagina
     hideAlert('logingAlert')
     const email=emailInput.value.trim()

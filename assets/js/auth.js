@@ -1,9 +1,5 @@
-import { 
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword, 
-    onAuthStateChanged,
-    signOut
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { createUserWithEmailAndPassword,signInWithEmailAndPassword, onAuthStateChanged,signOut} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
 
 import { 
     doc,
@@ -30,7 +26,6 @@ export function hideAlert(elementId) {
     alert.textContent = '';
 }
 
-// checa indexasion
 export async function registerUser({name, email,password,favoriteCity}){
     const credential =await createUserWithEmailAndPassword(auth,email,password)
     const user = credential.user
@@ -46,18 +41,18 @@ export async function registerUser({name, email,password,favoriteCity}){
 }
 
 
-//acabar la funcion
-//export async function loginUser({email,password}){
-
-// }
+export async function loginUser({email,password}){
+    const credential = await signInWithEmailAndPassword(auth,email,password)
+    return credential.user
+ }
 
 export async function getUserCurrentProfile(uid){
-  const doc=doc(db,'users',uid)
-  const user=await getDoc(doc)
+  const docUser=doc(db,'users',uid)
+  const user=await getDoc(docUser)
 
-  if (!user.exist()) return null
+  if (!user.exists()) return null
 
-  return user.data
+  return user.data()
 }
 
 export function observerAuth(callback){
@@ -69,34 +64,38 @@ export async function logoutUser(){
 
 }
 
-export function getFirebaseErrorMessage(error){//check sintaxis
-  const code = error?.code || ''
-  switch(code){
-    case 'auth/email-already-in-use':
-      return 'Este correo ya esta registrado';
-    case 'auth/invalid-email':
-        return 'El correo no es valido'
-    case 'auth-weak-password':
-      return 'La contrasea es muy debil'
-    case 'auth/invalid-crededntial':
-      return 'Correo o contraasea invalida'
-    case 'auth/user-not-found':
-      return 'No existe cuenta con este correo'
-    case 'auth/wrong-password':
-      return 'El password es incorrecto'
-    case 'auth/too-many-requests':
-      return 'demasiados intentos ,intenta mas tarde'
-    default:
-      return error?.message||'error inesperado'
-      }
-}
+export function getFirebaseErrorMessage(error) {
+  
+  console.log("Full Error Object:", error); // Add this line
+  console.log("Error Code:", error?.code);   // Add this line
 
+  const code = error?.code || '';
+  
+  switch(code) {
+    case 'auth/email-already-in-use':
+      return 'Este correo ya está registrado';
+    case 'auth/invalid-email':
+      return 'El correo no es válido';
+    case 'auth/weak-password':
+      return 'La contraseña es muy débil';
+    case 'auth/invalid-credential':
+      return 'Correo o contraseña inválida';
+    case 'auth/user-not-found':
+      return 'No existe cuenta con este correo';
+    case 'auth/wrong-password':
+      return 'El password es incorrecto';
+    case 'auth/too-many-requests':
+      return 'Demasiados intentos, intenta más tarde';
+    default:
+      return 'Error inesperado, por favor intenta de nuevo';
+  }
+}
 export function setButtonLoading(button,isLoading,text,loadingText='procesando...'){
   if (!button) return
 
   button.disabled =isLoading
   button.innerHTML = isLoading?` 
-    < span class="spinner-border spinner-border-sm me-2 " aria-hidden="true">
+    <span class="spinner-border spinner-border-sm me-2 " aria-hidden="true">
     </span>
     ${loadingText}
     `:text
