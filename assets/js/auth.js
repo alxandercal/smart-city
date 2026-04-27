@@ -5,6 +5,7 @@ import {
     doc,
     setDoc,
     getDoc,
+    updateDoc,//Agregado para actualizar documento
     serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
@@ -61,6 +62,16 @@ export async function getCurrentUserProfile(uid) {
   return snap.data();
 }
 
+
+export async function updateCurrentUserProfile(uid,data){
+  const user=doc(db,'user',uid)
+  await updateDoc(user,{
+    ...data,
+    updatedAt: serverTimestamp()
+  });
+
+}
+
 export function observeAuth(callback) {
   return onAuthStateChanged(auth, callback);
 }
@@ -91,3 +102,5 @@ export function getFirebaseErrorMessage(error) {
       return error?.message || "Ocurrió un error inesperado.";
   }
 }
+ 
+

@@ -186,6 +186,16 @@ body {
   line-height: 1.35;
 }
 
+.modal-profile {
+  border-radius: 1.25rem;
+  overflow: hidden;
+}
+
+.modal-profile .modal-header,
+.modal-profile .modal-body {
+  background: #ffffff;
+}
+
 @media (max-width: 576px) {
   .auth-wrapper {
     padding: 1.25rem 0;
@@ -199,5 +209,3 @@ body {
     font-size: 2.3rem;
   }
 }
-
-
